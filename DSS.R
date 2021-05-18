@@ -7,6 +7,7 @@ options("rgdal_show_exportToProj4_warnings"="none") #suppresses certain warnings
 library(sf)
 library(raster)
 library(mapview)
+library(leaflet)
+library(leafem)
 
-basemap <- raster("Project Data/elevation1.tif")
-plot(basemap)
+#going to use a normal background map not an elevation
