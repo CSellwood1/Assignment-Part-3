@@ -52,3 +52,20 @@ leaflet() %>%
     overlayGroups = c("SSSIs", "Settlements"),
     options = layersControlOptions(collapsed = TRUE)) %>%
   setView(lat = 54.5471, lng=-3.1687, zoom=10)
+
+#add a legend
+leaflet() %>% 
+  addProviderTiles(providers$Stamen.TerrainBackground, group = "Terrain (default)") %>% 
+  addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>% 
+  addPolygons(data = settlements.ll, color = "red", fillColor = "red", fillOpacity = 0.5, group = "Settlements") %>%
+  addPolygons(data = sssi.ll, color = "blue", fillColor = "blue", fillOpacity = 0.5, group = "SSSIs") %>%
+  addLayersControl(
+    baseGroups = c("Terrain (default)", "Satellite"), 
+    overlayGroups = c("SSSIs", "Settlements"),
+    options = layersControlOptions(collapsed = TRUE)) %>%
+  setView(lat = 54.5471, lng=-3.1687, zoom=10) %>%
+addLegend("bottomright",
+          colors = c("red", "blue"),
+          labels = c("Settlements", "SSSIs"),
+          title = "Features",
+          opacity = 1)
