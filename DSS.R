@@ -69,3 +69,6 @@ addLegend("bottomright",
           labels = c("Settlements", "SSSIs"),
           title = "Features",
           opacity = 1)
+
+#connecting app to shiny apps website
+install.packages('rsconnect')
