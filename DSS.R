@@ -94,3 +94,6 @@ leaflet() %>%
 
 #connecting app to shiny apps website
 install.packages('rsconnect')
+
+#use Cumbria pop data
+popdata<-read.csv("Cumbria pop data.csv")
