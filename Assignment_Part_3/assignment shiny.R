@@ -18,7 +18,7 @@ ui <- fluidPage(
     # Application title
     titlePanel("SSSIs and Settlements in Cumbria"),
 
-    # Sidebar with a slider input for number of bins 
+    # Sidebar 
     sidebarLayout(
         sidebarPanel(p("The population density is highly variable across Cumbria.")
         ),
