@@ -15,8 +15,8 @@ leaflet() %>%
   addProviderTiles(providers$Stamen.TerrainBackground) #shows terrain with no cities!
 
 #read in shape files
-settlements<- st_read("Project Data/Export_Output.shp")
-sssi<-st_read("Project Data/Export_Output_3.shp")
+settlements<- st_read("Export_Output.shp")
+sssi<-st_read("Export_Output_3.shp")
 #retrieve coord reference system from the objects
 st_crs(settlements)
 st_crs(sssi)#both 27700
@@ -101,3 +101,7 @@ library(ggplot2)
 popdata<-read.csv("Cumbria pop data.csv")
 
 ggplot(data=popdata, aes(x=Area, y=Pop.density)) + geom_bar(stat="identity") +theme_classic() + ylab(expression("Population density per km"^2))
+
+#display app on shiny website
+
+rsconnect::deployApp('assignment shiny.R')
