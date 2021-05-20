@@ -30,7 +30,8 @@ ui <- fluidPage(
                          h3("Select information to display"), 
                          choices = list("Human population" = 1, 
                                         "Population density" = 2),
-                         selected = 1)
+                         selected = 1),
+            plotOutput(outputId = "settlements_plot")
         ),
 
         # Show a plot of the generated distribution
@@ -71,6 +72,7 @@ server <- function(input, output) {
                       opacity = 1)
         
     })
+output$settlements_plot <- renderPlot(ggplot(data=popdata, aes(x=Area, y=Pop.density)) + geom_bar(stat="identity") +theme_classic())
     
 }
 

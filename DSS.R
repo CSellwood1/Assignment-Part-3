@@ -96,4 +96,8 @@ leaflet() %>%
 install.packages('rsconnect')
 
 #use Cumbria pop data
+library(ggplot2)
+
 popdata<-read.csv("Cumbria pop data.csv")
+
+ggplot(data=popdata, aes(x=Area, y=Pop.density)) + geom_bar(stat="identity") +theme_classic()
