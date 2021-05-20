@@ -74,7 +74,7 @@ server <- function(input, output) {
     })
     output$settlements_plot <- renderPlot(ggplot(data=popdata, aes(x=Area, y=Pop.density)) + geom_bar(stat="identity") +theme_classic())
     
-}
+} 
 
 # Run the application 
 shinyApp(ui = ui, server = server)
