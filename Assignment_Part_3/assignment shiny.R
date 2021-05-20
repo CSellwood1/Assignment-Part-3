@@ -25,7 +25,12 @@ ui <- fluidPage(
                         "Number of bins:",
                         min = 1,
                         max = 50,
-                        value = 30)
+                        value = 30),
+            radioButtons(inputId = "selection_group", 
+                         h3("Select information to display"), 
+                         choices = list("Human population" = 1, 
+                                        "Population density" = 2),
+                         selected = 1)
         ),
 
         # Show a plot of the generated distribution
