@@ -10,6 +10,7 @@
 library(shiny)
 library(leaflet)
 library(leafem)
+library(rsconnect)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -28,8 +29,10 @@ ui <- fluidPage(
         ),
 
         # Show a plot of the generated distribution
-        mainPanel(
-            leafletOutput(outputId = "cumbria_map")
+        mainPanel(h1("Overlap between settlements and SSSIs in Cumbria"),
+                p("There is a large amount of overlap between sites of special scientific interest (SSSIs) and settlements in Cumbria, UK."),
+                h2("The distribution of settlements and SSSIs in Cumbria"),
+            leafletOutput(outputId = "cumbria_map"),
         )
     )
 )
@@ -48,10 +51,11 @@ server <- function(input, output) {
     output$cumbria_map <- renderLeaflet({leaflet() %>% 
             addProviderTiles(providers$Stamen.TerrainBackground, group = "Terrain (default)") %>% 
             addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>% 
+            addTiles(group = "Towns and villages") %>%
             addPolygons(data = settlements.ll, color = "red", fillColor = "red", fillOpacity = 0.5, group = "Settlements") %>%
             addPolygons(data = sssi.ll, color = "blue", fillColor = "blue", fillOpacity = 0.5, group = "SSSIs") %>%
             addLayersControl(
-                baseGroups = c("Terrain (default)", "Satellite"), 
+                baseGroups = c("Terrain (default)", "Satellite", "Towns and villages"), 
                 overlayGroups = c("SSSIs", "Settlements"),
                 options = layersControlOptions(collapsed = TRUE)) %>%
             setView(lat = 54.5471, lng=-3.1687, zoom=10) %>%
