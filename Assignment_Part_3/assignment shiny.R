@@ -14,38 +14,29 @@ library(rsconnect)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-    
+
     # Application title
     titlePanel("SSSIs and Settlements in Cumbria"),
-    
+
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30),
-            radioButtons(inputId = "selection_group", 
-                         h3("Select information to display"), 
-                         choices = list("Human population" = 1, 
-                                        "Population density" = 2),
-                         selected = 1),
-            plotOutput(outputId = "settlements_plot")
+        sidebarPanel(p("The population density is highly variable across Cumbria.")
         ),
-        
-        # Show a plot of the generated distribution
+
+        # 
         mainPanel(h1("Overlap between settlements and SSSIs in Cumbria"),
-                  p("There is a large amount of overlap between sites of special scientific interest (SSSIs) and settlements in Cumbria, UK."),
-                  h2("The distribution of settlements and SSSIs in Cumbria"),
-                  leafletOutput(outputId = "cumbria_map"),
+                p("There is a large amount of overlap between sites of special scientific interest (SSSIs) and settlements in Cumbria, UK."),
+                plotOutput(outputId = "settlements_plot"),
+                h2("The distribution of settlements and SSSIs in Cumbria"),
+            leafletOutput(outputId = "cumbria_map"),
+            
         )
     )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-    
+
     # output$distPlot <- renderPlot({
     #     # generate bins based on input$bins from ui.R
     #     x    <- faithful[, 2]
@@ -72,9 +63,10 @@ server <- function(input, output) {
                       opacity = 1)
         
     })
-    output$settlements_plot <- renderPlot(ggplot(data=popdata, aes(x=Area, y=Pop.density)) + geom_bar(stat="identity") +theme_classic())
     
-} 
+    output$settlements_plot<- renderPlot(ggplot(data= popdata, aes(x= Area, y= Pop.density)) + geom_bar(stat="identity") + theme_classic() + ylab(expression("Population density per km"^2)))
+    
+}
 
 # Run the application 
 shinyApp(ui = ui, server = server)
