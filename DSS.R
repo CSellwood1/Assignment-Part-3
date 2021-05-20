@@ -58,7 +58,7 @@ leaflet() %>%
   addProviderTiles(providers$Stamen.TerrainBackground, group = "Terrain (default)") %>% 
   addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>% 
   addTiles(group = "Towns and villages")%>%
-  addPolygons(data = settlements.ll, color = "red", fillColor = "red", fillOpacity = 0.5, group = "Settlements") %>%
+  addPolygons(data = settlements.ll, color = "red", fillColor = "red", fillOpacity = 0.5, group = "Settlements",  highlightOptions = highlightOptions(color = "yellow", weight = 5, bringToFront = TRUE)) %>%
   addPolygons(data = sssi.ll, color = "blue", fillColor = "blue", fillOpacity = 0.5, group = "SSSIs") %>%
   addLayersControl(
     baseGroups = c("Terrain (default)", "Satellite", "Towns and villages"), 
@@ -70,6 +70,27 @@ addLegend("bottomright",
           labels = c("Settlements", "SSSIs"),
           title = "Features",
           opacity = 1)
+#create a variable of the settlement info
+settlement_info <- paste("Settlement: ", settlements.ll$NAME)
+#add info to map
+
+leaflet() %>% 
+  addProviderTiles(providers$Stamen.TerrainBackground, group = "Terrain (default)") %>% 
+  addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>% 
+  addTiles(group = "Towns and villages")%>%
+  addPolygons(data = settlements.ll, color = "red", fillColor = "red", fillOpacity = 0.5, group = "Settlements", highlightOptions = highlightOptions(color = "yellow", weight = 5, bringToFront = TRUE)) %>%
+  addPolygons(data = sssi.ll, color = "blue", fillColor = "blue", fillOpacity = 0.5, group = "SSSIs") %>%
+  addLayersControl(
+    baseGroups = c("Terrain (default)", "Satellite", "Towns and villages"), 
+    overlayGroups = c("SSSIs", "Settlements"),
+    options = layersControlOptions(collapsed = TRUE)) %>%
+  setView(lat = 54.5471, lng=-3.1687, zoom=10) %>%
+  addLegend("bottomright",
+            colors = c("red", "blue"),
+            labels = c("Settlements", "SSSIs"),
+            title = "Features",
+            opacity = 1)
+  
 
 #connecting app to shiny apps website
 install.packages('rsconnect')
